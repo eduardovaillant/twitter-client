@@ -1,7 +1,7 @@
 # Add Rules
 
 ## Success:
-1. ⛔️ Receive a **POST** request on **/api/rules**
+1. ⛔️ Receive a **POST** request on **/api/tweets/rules**
 2. ⛔️ Validate the obligatory field **rule**
 3. ⛔️ Validate the optional field **tag** (if provided)
 4. ⛔️ Calls the **Twitter API** with the correct data

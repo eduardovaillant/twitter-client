@@ -1,7 +1,7 @@
 # Delete Rules
 
 ## Success:
-1. ⛔️ Receive a **DELETE** request on **/api/rules/:id**
+1. ⛔️ Receive a **DELETE** request on **/api/tweets/rules/:id**
 2. ⛔️ Call the **Twitter API** on the delete rules endpoint
 3. ⛔️ Delete the **rule** locally
 4. ⛔️ Returns 200 with the confirmation

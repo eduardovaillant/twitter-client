@@ -1,7 +1,7 @@
 # Retrieve Rules
 
 ## Success:
-1. ⛔️ Receive a **GET** request on **/api/rules/**
+1. ⛔️ Receive a **GET** request on **/api/tweets/rules/**
 2. ⛔️ Load the user rules using the token id
 3. ⛔️ Returns 200 with the rules
 
