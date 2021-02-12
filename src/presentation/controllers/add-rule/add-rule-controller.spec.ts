@@ -71,10 +71,17 @@ describe('AddRuleController', () => {
     expect(response).toEqual(serverError(new Error()))
   })
 
-  test('should call add rule with correct values', async () => {
+  test('should call AddRule with correct values', async () => {
     const { sut, addRuleStub } = makeSut()
     const addSpy = jest.spyOn(addRuleStub, 'add')
     await sut.handle(makeFakeRequest(makeFakeRule()))
     expect(addSpy).toBeCalledWith(makeFakeRule())
+  })
+
+  test('should return 500 if AddRule throws', async () => {
+    const { sut, addRuleStub } = makeSut()
+    jest.spyOn(addRuleStub, 'add').mockReturnValueOnce(Promise.reject(new Error()))
+    const response = await sut.handle({})
+    expect(response).toEqual(serverError(new Error()))
   })
 })
