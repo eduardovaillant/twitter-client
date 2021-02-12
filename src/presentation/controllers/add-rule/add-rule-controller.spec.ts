@@ -4,6 +4,7 @@ import { RuleModel } from '@/domain/models/rule-model'
 import { HttpRequest } from '@/presentation/protocols/http'
 import { badRequest } from '@/presentation/helpers/http-helper'
 import { MissingParamError } from '@/presentation/errors/missing-param-error'
+import { Validation, ValidationResponse } from '@/presentation/protocols/validation'
 
 const makeAddRuleStub = (): AddRule => {
   class AddRulesStub implements AddRule {
@@ -12,6 +13,17 @@ const makeAddRuleStub = (): AddRule => {
     }
   }
   return new AddRulesStub()
+}
+
+const makeValidationStub = (): Validation => {
+  class ValidationStub implements Validation {
+    validate (value: any): ValidationResponse {
+      return {
+        isValid: true
+      }
+    }
+  }
+  return new ValidationStub()
 }
 
 const makeFakeRule = (): AddRuleModel => ({
@@ -25,13 +37,16 @@ const makeFakeRequest = (body: any): HttpRequest => ({
 type SutTypes = {
   sut: AddRuleController
   addRuleStub: AddRule
+  validationStub: Validation
 }
 const makeSut = (): SutTypes => {
   const addRuleStub = makeAddRuleStub()
-  const sut = new AddRuleController(addRuleStub)
+  const validationStub = makeValidationStub()
+  const sut = new AddRuleController(addRuleStub, validationStub)
   return {
     sut,
-    addRuleStub
+    addRuleStub,
+    validationStub
   }
 }
 
@@ -46,6 +61,13 @@ describe('AddRuleController', () => {
   test('should return 400 if no value is provided', async () => {
     const { sut } = makeSut()
     const response = await sut.handle(makeFakeRequest({}))
-    expect(response).toEqual(badRequest(new MissingParamError('value')))
+    expect(response).toEqual(badRequest([new MissingParamError('value').message]))
+  })
+
+  test('should call validation with correct values', async () => {
+    const { sut, validationStub } = makeSut()
+    const validateSpy = jest.spyOn(validationStub, 'validate')
+    await sut.handle(makeFakeRequest(makeFakeRule()))
+    expect(validateSpy).toHaveBeenLastCalledWith(makeFakeRule())
   })
 })
