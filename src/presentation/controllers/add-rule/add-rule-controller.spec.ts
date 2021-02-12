@@ -3,7 +3,7 @@ import { AddRule, AddRuleModel } from '@/domain/usecases/add-rule'
 import { RuleModel } from '@/domain/models/rule-model'
 import { HttpRequest } from '@/presentation/protocols/http'
 import { Validation, ValidationResponse } from '@/presentation/protocols/validation'
-import { badRequest } from '@/presentation/helpers/http-helper'
+import { badRequest, serverError } from '@/presentation/helpers/http-helper'
 
 const makeAddRuleStub = (): AddRule => {
   class AddRulesStub implements AddRule {
@@ -62,6 +62,13 @@ describe('AddRuleController', () => {
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce({ isValid: false, errors: ['any_error'] })
     const response = await sut.handle(makeFakeRequest(makeFakeRule()))
     expect(response).toEqual(badRequest(['any_error']))
+  })
+
+  test('should return 500 if validation throws', async () => {
+    const { sut, validationStub } = makeSut()
+    jest.spyOn(validationStub, 'validate').mockImplementationOnce(() => { throw new Error() })
+    const response = await sut.handle({})
+    expect(response).toEqual(serverError(new Error()))
   })
 
   test('should call add rule with correct values', async () => {
