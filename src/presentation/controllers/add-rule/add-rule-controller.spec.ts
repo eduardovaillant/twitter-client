@@ -3,12 +3,20 @@ import { AddRule, AddRuleModel } from '@/domain/usecases/add-rule'
 import { RuleModel } from '@/domain/models/rule-model'
 import { HttpRequest } from '@/presentation/protocols/http'
 import { Validation, ValidationResponse } from '@/presentation/protocols/validation'
-import { badRequest, serverError } from '@/presentation/helpers/http-helper'
+import { badRequest, serverError, created } from '@/presentation/helpers/http-helper'
+
+const makeFakeRuleModel = (): RuleModel => (
+  {
+    id: 'any_id',
+    value: 'any_value',
+    tag: 'any_tag'
+  }
+)
 
 const makeAddRuleStub = (): AddRule => {
   class AddRulesStub implements AddRule {
     async add (rule: AddRuleModel): Promise<RuleModel> {
-      return await Promise.resolve({ id: 'any_id', value: 'any_value', tag: 'any_tag' })
+      return await Promise.resolve(makeFakeRuleModel())
     }
   }
   return new AddRulesStub()
@@ -83,5 +91,11 @@ describe('AddRuleController', () => {
     jest.spyOn(addRuleStub, 'add').mockReturnValueOnce(Promise.reject(new Error()))
     const response = await sut.handle({})
     expect(response).toEqual(serverError(new Error()))
+  })
+
+  test('should return 201 on success', async () => {
+    const { sut } = makeSut()
+    const response = await sut.handle(makeFakeRequest(makeFakeRule()))
+    expect(response).toEqual(created(makeFakeRuleModel()))
   })
 })
