@@ -3,6 +3,7 @@ import { AddRule, AddRuleModel } from '@/domain/usecases/add-rule'
 import { RuleModel } from '@/domain/models/rule-model'
 import { HttpRequest } from '@/presentation/protocols/http'
 import { Validation, ValidationResponse } from '@/presentation/protocols/validation'
+import { badRequest } from '@/presentation/helpers/http-helper'
 
 const makeAddRuleStub = (): AddRule => {
   class AddRulesStub implements AddRule {
@@ -49,17 +50,24 @@ const makeSut = (): SutTypes => {
 }
 
 describe('AddRuleController', () => {
-  test('should call add rule with correct values', async () => {
-    const { sut, addRuleStub } = makeSut()
-    const addSpy = jest.spyOn(addRuleStub, 'add')
-    await sut.handle(makeFakeRequest(makeFakeRule()))
-    expect(addSpy).toBeCalledWith(makeFakeRule())
-  })
-
   test('should call validation with correct values', async () => {
     const { sut, validationStub } = makeSut()
     const validateSpy = jest.spyOn(validationStub, 'validate')
     await sut.handle(makeFakeRequest(makeFakeRule()))
     expect(validateSpy).toHaveBeenLastCalledWith(makeFakeRule())
+  })
+
+  test('should return 400 if validation fails', async () => {
+    const { sut, validationStub } = makeSut()
+    jest.spyOn(validationStub, 'validate').mockReturnValueOnce({ isValid: false, errors: ['any_error'] })
+    const response = await sut.handle(makeFakeRequest(makeFakeRule()))
+    expect(response).toEqual(badRequest(['any_error']))
+  })
+
+  test('should call add rule with correct values', async () => {
+    const { sut, addRuleStub } = makeSut()
+    const addSpy = jest.spyOn(addRuleStub, 'add')
+    await sut.handle(makeFakeRequest(makeFakeRule()))
+    expect(addSpy).toBeCalledWith(makeFakeRule())
   })
 })
