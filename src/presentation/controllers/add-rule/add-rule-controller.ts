@@ -1,8 +1,4 @@
-import { Controller } from '@/presentation/protocols/controller'
-import { HttpRequest, HttpResponse } from '@/presentation/protocols/http'
-import { AddRule } from '@/domain/usecases/add-rule'
-import { badRequest, created, serverError } from '@/presentation/helpers/http-helper'
-import { Validation } from '@/presentation/protocols/validation'
+import { Controller, HttpRequest, HttpResponse, AddRule, Validation, badRequest, created, serverError } from './add-rule-controller-protocols'
 
 export class AddRuleController implements Controller {
   constructor (

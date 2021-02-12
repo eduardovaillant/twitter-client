@@ -1,9 +1,5 @@
 import { AddRuleController } from './add-rule-controller'
-import { AddRule, AddRuleModel } from '@/domain/usecases/add-rule'
-import { RuleModel } from '@/domain/models/rule-model'
-import { HttpRequest } from '@/presentation/protocols/http'
-import { Validation, ValidationResponse } from '@/presentation/protocols/validation'
-import { badRequest, serverError, created } from '@/presentation/helpers/http-helper'
+import { AddRule, AddRuleModel, RuleModel, HttpRequest, Validation, ValidationResponse, badRequest, serverError, created } from './add-rule-controller-protocols'
 
 const makeFakeRuleModel = (): RuleModel => (
   {
