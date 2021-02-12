@@ -1,4 +1,5 @@
 import { HttpResponse } from '@/presentation/protocols/http'
+import { ServerError } from '@/presentation/errors/server-error'
 
 export const badRequest = (errors: string[]): HttpResponse => (
   {
@@ -7,5 +8,12 @@ export const badRequest = (errors: string[]): HttpResponse => (
       code: 400,
       errors
     }
+  }
+)
+
+export const serverError = (error: Error): HttpResponse => (
+  {
+    statusCode: 500,
+    body: new ServerError(error.stack)
   }
 )
