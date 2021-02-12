@@ -6,7 +6,7 @@
 3. ✅ Validate the data of the fields **value** and **tag** (if provided)
 4. ⛔️ Calls the **Twitter API** with the correct data
 5. ⛔️ Create a new rule with the Twitter API response
-6. ⛔️ Returns 201 with the new rule
+6. ✅ Returns 201 with the new rule
 
 ## Exceptions:
 1. ⛔️ Returns 404 if the api doesn't exists
