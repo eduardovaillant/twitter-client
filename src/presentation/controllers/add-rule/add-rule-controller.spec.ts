@@ -2,8 +2,6 @@ import { AddRuleController } from './add-rule-controller'
 import { AddRule, AddRuleModel } from '@/domain/usecases/add-rule'
 import { RuleModel } from '@/domain/models/rule-model'
 import { HttpRequest } from '@/presentation/protocols/http'
-import { badRequest } from '@/presentation/helpers/http-helper'
-import { MissingParamError } from '@/presentation/errors/missing-param-error'
 import { Validation, ValidationResponse } from '@/presentation/protocols/validation'
 
 const makeAddRuleStub = (): AddRule => {
@@ -56,12 +54,6 @@ describe('AddRuleController', () => {
     const addSpy = jest.spyOn(addRuleStub, 'add')
     await sut.handle(makeFakeRequest(makeFakeRule()))
     expect(addSpy).toBeCalledWith(makeFakeRule())
-  })
-
-  test('should return 400 if no value is provided', async () => {
-    const { sut } = makeSut()
-    const response = await sut.handle(makeFakeRequest({}))
-    expect(response).toEqual(badRequest([new MissingParamError('value').message]))
   })
 
   test('should call validation with correct values', async () => {

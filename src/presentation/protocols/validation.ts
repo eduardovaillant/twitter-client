@@ -1,7 +1,7 @@
 // TODO improve this response
 export type ValidationResponse = {
   isValid: boolean
-  errors?: any
+  errors?: string[]
 }
 
 export interface Validation {
