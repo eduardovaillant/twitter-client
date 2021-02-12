@@ -12,4 +12,5 @@
 1. ⛔️ Returns 404 if the api doesn't exists
 2. ✅ Returns 400 if **rule** is not provided
 3. ✅ Returns 400 if **rule** or **tag** fails the validation
-5. ⛔️ Returns 500 if create rule fails
+4. ✅ Returns 500 if Validation fails
+5. ✅ Returns 500 if AddRule fails
