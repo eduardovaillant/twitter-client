@@ -11,7 +11,7 @@ export class AddRuleImpl implements AddRule {
 
   async add (rule: AddRuleModel): Promise<RuleModel> {
     const twitterResponse = await this.twitterClient.addRule(rule)
-    await this.addRuleRepository.addRule(twitterResponse)
-    return Promise.resolve(null)
+    const createdRule = await this.addRuleRepository.addRule(twitterResponse)
+    return createdRule
   }
 }
