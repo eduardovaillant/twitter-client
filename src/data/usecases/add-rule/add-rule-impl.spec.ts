@@ -46,6 +46,15 @@ const makeFakeTwitterAddRuleResponse = (): TwitterAddRuleResponse => (
   }
 )
 
+const makeFakeRule = (): RuleModel => (
+  {
+    id: 'any_id',
+    value: 'any_value',
+    tag: 'any_tag',
+    twitter_rule_id: 'any_id'
+  }
+)
+
 type SutTypes = {
   sut: AddRuleImpl
   twitterAddRuleStub: TwitterAddRule
@@ -90,5 +99,11 @@ describe('AddRuleImpl', () => {
     jest.spyOn(addRuleRepositoryStub, 'addRule').mockImplementationOnce(() => { throw new Error() })
     const promise = sut.add(makeFakeAddRule())
     await expect(promise).rejects.toThrow()
+  })
+
+  test('should return a rule on success', async () => {
+    const { sut } = makeSut()
+    const rule = await sut.add(makeFakeAddRule())
+    expect(rule).toEqual(makeFakeRule())
   })
 })
