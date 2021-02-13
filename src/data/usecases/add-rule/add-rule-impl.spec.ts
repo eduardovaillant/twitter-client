@@ -1,8 +1,5 @@
 import { AddRuleImpl } from './add-rule-impl'
-import { AddRuleRepository } from '@/data/protocols/repositories/add-rule-repository'
-import { TwitterAddRule, TwitterAddRuleResponse } from '@/data/protocols/clients/twitter-add-rule'
-import { AddRuleModel } from '@/domain/usecases/add-rule'
-import { RuleModel } from '@/domain/models/rule-model'
+import { TwitterAddRule, TwitterAddRuleResponse, AddRuleRepository, RuleModel, AddRuleModel } from './add-rule-impl-protocols'
 
 const makeTwitterAddRuleStub = (): TwitterAddRule => {
   class TwitterAddRuleStub implements TwitterAddRule {

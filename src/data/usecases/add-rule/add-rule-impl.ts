@@ -1,8 +1,4 @@
-import { TwitterAddRule } from '@/data/protocols/clients/twitter-add-rule'
-import { AddRuleRepository } from '@/data/protocols/repositories/add-rule-repository'
-import { RuleModel } from '@/domain/models/rule-model'
-import { AddRule, AddRuleModel } from '@/domain/usecases/add-rule'
-
+import { TwitterAddRule, AddRuleRepository, RuleModel, AddRule, AddRuleModel } from './add-rule-impl-protocols'
 export class AddRuleImpl implements AddRule {
   constructor (
     private readonly twitterClient: TwitterAddRule,
