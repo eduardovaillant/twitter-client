@@ -9,7 +9,6 @@ export class AddRuleValidator implements Validation {
         .max(30)
         .required(),
       tag: Joi.string()
-        .required()
     })
     const result = schema.validate(input, { abortEarly: false })
 
