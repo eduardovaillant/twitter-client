@@ -84,4 +84,11 @@ describe('AddRuleImpl', () => {
     await sut.add(makeFakeAddRule())
     expect(addRuleSpy).toHaveBeenCalledWith(makeFakeTwitterAddRuleResponse())
   })
+
+  test('should throw if AddRuleRepository throws', async () => {
+    const { sut, addRuleRepositoryStub } = makeSut()
+    jest.spyOn(addRuleRepositoryStub, 'addRule').mockImplementationOnce(() => { throw new Error() })
+    const promise = sut.add(makeFakeAddRule())
+    await expect(promise).rejects.toThrow()
+  })
 })
