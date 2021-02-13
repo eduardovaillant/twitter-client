@@ -14,4 +14,11 @@ describe('AddRuleValidator', () => {
     expect(result.isValid).toBeFalsy()
     expect(result.errors[0]).toBe('"value" length must be at least 3 characters long')
   })
+
+  test('should return an error if value length is more than the max length required', () => {
+    const sut = new AddRuleValidator()
+    const result = sut.validate({ value: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' })
+    expect(result.isValid).toBeFalsy()
+    expect(result.errors[0]).toBe('"value" length must be less than or equal to 30 characters long')
+  })
 })
