@@ -21,4 +21,11 @@ describe('AddRuleValidator', () => {
     expect(result.isValid).toBeFalsy()
     expect(result.errors[0]).toBe('"value" length must be less than or equal to 30 characters long')
   })
+
+  test('should return an error if tag does not have the min length required', () => {
+    const sut = new AddRuleValidator()
+    const result = sut.validate({ value: 'any_value', tag: 'a' })
+    expect(result.isValid).toBeFalsy()
+    expect(result.errors[0]).toBe('"tag" length must be at least 3 characters long')
+  })
 })
