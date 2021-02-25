@@ -5,7 +5,8 @@ const makeFakeRuleModel = (): RuleModel => (
   {
     id: 'any_id',
     value: 'any_value',
-    tag: 'any_tag'
+    tag: 'any_tag',
+    twitter_rule_id: 'any_id'
   }
 )
 
