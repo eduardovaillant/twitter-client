@@ -9,7 +9,7 @@ export class TwitterClient implements TwitterAddRule {
   ) {}
 
   async addRule (rule: AddRuleModel): Promise<TwitterAddRuleResponse> {
-    const result = await this.httpPost.post('add_rule_url', rule)
+    const result = await this.httpPost.post('tweets/search/stream/rules', rule)
     return result
   }
 }
