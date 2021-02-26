@@ -55,5 +55,12 @@ describe('TwitterClient', () => {
       const result = await sut.addRule(makeFakeAddRule())
       expect(result).toEqual(makeFakeTwitterAddRuleResponse())
     })
+
+    test('should throw if HttpPost throws', async () => {
+      const { sut, httpPostStub } = makeSut()
+      jest.spyOn(httpPostStub, 'post').mockImplementationOnce(() => { throw new Error() })
+      const promise = sut.addRule(makeFakeAddRule())
+      await expect(promise).rejects.toThrow()
+    })
   })
 })
