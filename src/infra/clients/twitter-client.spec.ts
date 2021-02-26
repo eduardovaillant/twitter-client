@@ -49,5 +49,11 @@ describe('TwitterClient', () => {
       await sut.addRule(makeFakeAddRule())
       expect(postSpy.mock.calls[0][1]).toEqual(makeFakeAddRule())
     })
+
+    test('should return the created rule on success', async () => {
+      const { sut } = makeSut()
+      const result = await sut.addRule(makeFakeAddRule())
+      expect(result).toEqual(makeFakeTwitterAddRuleResponse())
+    })
   })
 })
