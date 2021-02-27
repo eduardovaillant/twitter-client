@@ -3,6 +3,8 @@ import { TwitterAddRule, TwitterAddRuleResponse } from '@/data/protocols/clients
 import { AddRuleModel } from '@/domain/usecases/add-rule'
 import env from '@/main/config/env'
 
+// TODO add correct fixtures to simulate the api calls
+// TODO return an error if the api call is not successfull
 export class TwitterClient implements TwitterAddRule {
   constructor (
     private readonly httpPost: HttpPost
