@@ -30,9 +30,11 @@
   },
   "homepage": "https://github.com/eduardovaillant/twitter-parser#readme",
   "devDependencies": {
+    "@shelf/jest-mongodb": "^1.2.3",
     "@types/axios": "^0.14.0",
     "@types/jest": "^26.0.20",
     "@types/joi": "^17.2.3",
+    "@types/mongodb": "^3.6.8",
     "@types/node": "^14.14.25",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "eslint": "^7.19.0",
@@ -50,6 +52,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
-    "joi": "^17.4.0"
+    "joi": "^17.4.0",
+    "mongodb": "^3.6.4"
   }
 }
