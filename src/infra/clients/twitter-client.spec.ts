@@ -2,6 +2,7 @@ import { TwitterClient } from './twitter-client'
 import { TwitterAddRuleResponse } from '@/data/protocols/clients/twitter-add-rule'
 import { HttpPost } from '@/data/protocols/http-client/http-post'
 import { AddRuleModel } from '@/domain/usecases/add-rule'
+import env from '@/main/config/env'
 
 const makeFakeTwitterAddRuleResponse = (): TwitterAddRuleResponse => (
   {
@@ -41,13 +42,17 @@ const makeSut = (): SutTypes => {
   }
 }
 
+const config = {
+  headers: { Authorization: `Bearer ${env.bearerToken}` }
+}
+
 describe('TwitterClient', () => {
   describe('Add Rule', () => {
     test('should call the twitter api with correct values ', async () => {
       const { sut, httpPostStub } = makeSut()
       const postSpy = jest.spyOn(httpPostStub, 'post')
       await sut.addRule(makeFakeAddRule())
-      expect(postSpy.mock.calls[0][1]).toEqual(makeFakeAddRule())
+      expect(postSpy).toHaveBeenCalledWith(env.baseUrl + 'tweets/search/stream/rules', makeFakeAddRule(), config)
     })
 
     test('should return the created rule on success', async () => {
