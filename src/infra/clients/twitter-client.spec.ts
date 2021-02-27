@@ -1,7 +1,7 @@
-import { TwitterAddRuleResponse } from '@/data/protocols/clients/twitter-add-rule'
-import { AddRuleModel } from '@/domain/usecases/add-rule'
-import { HttpPost } from '../protocols/http-client/http-post'
 import { TwitterClient } from './twitter-client'
+import { TwitterAddRuleResponse } from '@/data/protocols/clients/twitter-add-rule'
+import { HttpPost } from '@/data/protocols/http-client/http-post'
+import { AddRuleModel } from '@/domain/usecases/add-rule'
 
 const makeFakeTwitterAddRuleResponse = (): TwitterAddRuleResponse => (
   {

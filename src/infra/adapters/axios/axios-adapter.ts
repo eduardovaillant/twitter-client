@@ -1,4 +1,4 @@
-import { HttpPost } from '@/infra/protocols/http-client/http-post'
+import { HttpPost } from '@/data/protocols/http-client/http-post'
 import axios from 'axios'
 
 export class AxiosAdapter implements HttpPost {
