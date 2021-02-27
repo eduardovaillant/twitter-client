@@ -3,7 +3,7 @@ import axios from 'axios'
 
 jest.mock('axios', () => ({
   async post (): Promise<any> {
-    return Promise.resolve(null)
+    return Promise.resolve({ data: 'any_data' })
   }
 }))
 
@@ -14,6 +14,12 @@ describe('HttpAdapter', () => {
       const postSpy = jest.spyOn(axios, 'post')
       await sut.post('any_url', 'any_data')
       expect(postSpy).toHaveBeenCalledWith('any_url', 'any_data')
+    })
+
+    test('should return the response', async () => {
+      const sut = new AxiosAdapter()
+      const result = await sut.post('any_url', 'any_data')
+      expect(result).toEqual({ data: 'any_data' })
     })
   })
 })
