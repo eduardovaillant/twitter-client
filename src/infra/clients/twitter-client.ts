@@ -1,6 +1,7 @@
 import { HttpPost } from '@/infra/protocols/http-client/http-post'
 import { TwitterAddRule, TwitterAddRuleResponse } from '@/data/protocols/clients/twitter-add-rule'
 import { AddRuleModel } from '@/domain/usecases/add-rule'
+import env from '@/main/config/env'
 
 // TODO if the twitter response is equal null, what i should do?
 export class TwitterClient implements TwitterAddRule {
@@ -9,7 +10,7 @@ export class TwitterClient implements TwitterAddRule {
   ) {}
 
   async addRule (rule: AddRuleModel): Promise<TwitterAddRuleResponse> {
-    const result = await this.httpPost.post('tweets/search/stream/rules', rule)
+    const result = await this.httpPost.post(env.baseUrl + 'tweets/search/stream/rules', rule)
     return result
   }
 }
