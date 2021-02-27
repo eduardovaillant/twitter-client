@@ -3,6 +3,7 @@ import axios from 'axios'
 
 export class AxiosAdapter implements HttpPost {
   async post (url: string, data: any): Promise<any> {
-    return await axios.post(url, data)
+    const response = await axios.post(url, data)
+    return response
   }
 }
