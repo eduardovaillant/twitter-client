@@ -7,8 +7,8 @@ jest.mock('axios', () => ({
   }
 }))
 
-describe('HttpAdapter', () => {
-  describe('HttpPost', () => {
+describe('AxiosAdapter', () => {
+  describe('POST', () => {
     test('should call post with correct values', async () => {
       const sut = new AxiosAdapter()
       const postSpy = jest.spyOn(axios, 'post')
