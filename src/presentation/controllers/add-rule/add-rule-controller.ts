@@ -16,6 +16,7 @@ export class AddRuleController implements Controller {
       const ruleModel = await this.addRule.add(httpRequest.body)
       return created(ruleModel)
     } catch (error) {
+      console.error(error)
       return serverError(error)
     }
   }

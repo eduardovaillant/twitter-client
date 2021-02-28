@@ -1,16 +1,26 @@
 import { TwitterClient } from './twitter-client'
-import { TwitterAddRuleResponse } from '@/data/protocols/clients/twitter-add-rule'
 import { HttpPost } from '@/data/protocols/http-client/http-post'
 import { AddRuleModel } from '@/domain/usecases/add-rule'
 import env from '@/main/config/env'
+import { TwitterAddRuleResponse } from '@/data/protocols/clients/twitter-add-rule'
 
-const makeFakeTwitterAddRuleResponse = (): TwitterAddRuleResponse => (
+const makeFakeTwitterResponse = (): any => (
   {
-    value: 'any_value',
-    tag: 'any_tag',
-    twitter_rule_id: 'any_id'
+    data: {
+      data: [{
+        value: 'any_value',
+        tag: 'any_tag',
+        id: 'any_id'
+      }]
+    }
   }
 )
+
+const makeFakeTwitterAddRuleResponse = (): TwitterAddRuleResponse => ({
+  value: 'any_value',
+  tag: 'any_tag',
+  twitter_rule_id: 'any_id'
+})
 
 const makeFakeAddRule = (): AddRuleModel => (
   {
@@ -19,10 +29,19 @@ const makeFakeAddRule = (): AddRuleModel => (
   }
 )
 
+const makeFakeTwitterAddRuleBody = (): any => ({
+  add: [
+    {
+      value: 'any_value',
+      tag: 'any_tag'
+    }
+  ]
+})
+
 const makeHttpPostStub = (): HttpPost => {
   class HttpPostStub implements HttpPost {
     async post (data: any, url: string): Promise<any> {
-      return Promise.resolve(makeFakeTwitterAddRuleResponse())
+      return Promise.resolve(makeFakeTwitterResponse())
     }
   }
   return new HttpPostStub()
@@ -52,7 +71,7 @@ describe('TwitterClient', () => {
       const { sut, httpPostStub } = makeSut()
       const postSpy = jest.spyOn(httpPostStub, 'post')
       await sut.addRule(makeFakeAddRule())
-      expect(postSpy).toHaveBeenCalledWith(env.baseUrl + 'tweets/search/stream/rules', makeFakeAddRule(), config)
+      expect(postSpy).toHaveBeenCalledWith(env.baseUrl + 'tweets/search/stream/rules', makeFakeTwitterAddRuleBody(), config)
     })
 
     test('should return the created rule on success', async () => {
