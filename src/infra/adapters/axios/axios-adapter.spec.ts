@@ -9,11 +9,18 @@ jest.mock('axios', () => ({
 
 describe('AxiosAdapter', () => {
   describe('POST', () => {
-    test('should call post with correct values', async () => {
+    test('should call post with correct values (without config)', async () => {
       const sut = new AxiosAdapter()
       const postSpy = jest.spyOn(axios, 'post')
       await sut.post('any_url', 'any_data')
       expect(postSpy).toHaveBeenCalledWith('any_url', 'any_data')
+    })
+
+    test('should call post with correct values (with config)', async () => {
+      const sut = new AxiosAdapter()
+      const postSpy = jest.spyOn(axios, 'post')
+      await sut.post('any_url', 'any_data', 'any_config')
+      expect(postSpy).toHaveBeenCalledWith('any_url', 'any_data', 'any_config')
     })
 
     test('should return the response', async () => {
