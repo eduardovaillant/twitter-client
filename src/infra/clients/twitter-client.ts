@@ -1,6 +1,4 @@
-import { HttpPost } from '@/data/protocols/http-client/http-post'
-import { TwitterAddRule, TwitterAddRuleResponse } from '@/data/protocols/clients/twitter-add-rule'
-import { AddRuleModel } from '@/domain/usecases/add-rule'
+import { HttpPost, AddRuleModel, TwitterAddRule, TwitterAddRuleResponse } from './twitter-client-protocols'
 import env from '@/main/config/env'
 
 // TODO return an error if the api call is not successfull
