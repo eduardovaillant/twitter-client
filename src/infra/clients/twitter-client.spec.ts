@@ -74,6 +74,13 @@ describe('TwitterClient', () => {
       expect(postSpy).toHaveBeenCalledWith(env.baseUrl + 'tweets/search/stream/rules', makeFakeTwitterAddRuleBody(), config)
     })
 
+    test('should set the rule.tag to an empty string if no tag is provided', async () => {
+      const { sut, httpPostStub } = makeSut()
+      const postSpy = jest.spyOn(httpPostStub, 'post')
+      await sut.addRule({ value: 'any_value' })
+      expect(postSpy.mock.calls[0][1]).toEqual({ add: [{ value: 'any_value', tag: '' }] })
+    })
+
     test('should return the created rule on success', async () => {
       const { sut } = makeSut()
       const result = await sut.addRule(makeFakeAddRule())
