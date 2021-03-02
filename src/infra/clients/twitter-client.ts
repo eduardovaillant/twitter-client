@@ -3,7 +3,6 @@ import { TwitterAddRule, TwitterAddRuleResponse } from '@/data/protocols/clients
 import { AddRuleModel } from '@/domain/usecases/add-rule'
 import env from '@/main/config/env'
 
-// TODO add correct fixtures to simulate the api calls
 // TODO return an error if the api call is not successfull
 // TODO error handling, twitter api responses to the user, validation
 export class TwitterClient implements TwitterAddRule {
@@ -12,9 +11,7 @@ export class TwitterClient implements TwitterAddRule {
   ) {}
 
   async addRule (rule: AddRuleModel): Promise<TwitterAddRuleResponse> {
-    const config = {
-      headers: { Authorization: `Bearer ${env.bearerToken}` }
-    }
+    const config = { headers: { Authorization: `Bearer ${env.bearerToken}` } }
     const body = {
       add: [
         {
