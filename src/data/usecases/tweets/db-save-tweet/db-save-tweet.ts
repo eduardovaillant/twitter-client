@@ -6,6 +6,6 @@ export class DbSaveTweet implements SaveTweet {
   ) {}
 
   async save (tweet: SaveTweetModel): Promise<void> {
-    await this.saveTweetRepository.save(tweet)
+    await this.saveTweetRepository.saveTweet(tweet)
   }
 }

@@ -3,7 +3,7 @@ import { SaveTweetRepository, SaveTweetModel } from './db-save-tweet-protocols'
 
 const makeSaveTweetRepositoryStub = (): SaveTweetRepository => {
   class SaveTweetRepositoryStub implements SaveTweetRepository {
-    async save (tweet: SaveTweetModel): Promise<void> {
+    async saveTweet (tweet: SaveTweetModel): Promise<void> {
     }
   }
   return new SaveTweetRepositoryStub()
@@ -33,14 +33,14 @@ const makeSut = (): SutTypes => {
 describe('DbSaveTweet', () => {
   test('should call SaveTweetRepository with correct value', async () => {
     const { sut, saveTweetRepositoryStub } = makeSut()
-    const saveSpy = jest.spyOn(saveTweetRepositoryStub, 'save')
+    const saveTweetSpy = jest.spyOn(saveTweetRepositoryStub, 'saveTweet')
     await sut.save(makeFakeSaveTweetModel())
-    expect(saveSpy).toHaveBeenCalledWith(makeFakeSaveTweetModel())
+    expect(saveTweetSpy).toHaveBeenCalledWith(makeFakeSaveTweetModel())
   })
 
   test('should throw if SaveTweetRepository throws', async () => {
     const { sut, saveTweetRepositoryStub } = makeSut()
-    jest.spyOn(saveTweetRepositoryStub, 'save').mockImplementationOnce(() => { throw new Error() })
+    jest.spyOn(saveTweetRepositoryStub, 'saveTweet').mockImplementationOnce(() => { throw new Error() })
     const promise = sut.save(makeFakeSaveTweetModel())
     await expect(promise).rejects.toThrow()
   })
