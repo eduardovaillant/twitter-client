@@ -1,6 +1,6 @@
 import { Controller } from '@/presentation/protocols'
 import { AddRuleController } from '@/presentation/controllers/add-rule/add-rule-controller'
-import { AddRuleImpl } from '@/data/usecases/add-rule/add-rule-impl'
+import { AddRuleImpl } from '@/data/usecases/rules/add-rule/add-rule-impl'
 import { AxiosAdapter } from '@/infra/adapters/axios/axios-adapter'
 import { TwitterClient } from '@/infra/clients/twitter-client'
 import { TweetRepository } from '@/infra/db/tweet/tweet-repository'

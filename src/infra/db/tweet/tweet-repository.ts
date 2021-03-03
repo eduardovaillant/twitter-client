@@ -1,4 +1,4 @@
-import { AddRuleRepository, RuleModel, TwitterAddRuleResponse } from '@/data/usecases/add-rule/add-rule-impl-protocols'
+import { AddRuleRepository, RuleModel, TwitterAddRuleResponse } from '@/data/usecases/rules/add-rule/add-rule-impl-protocols'
 import { MongoHelper } from '../helpers/mongo-helper'
 
 export class TweetRepository implements AddRuleRepository {
