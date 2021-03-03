@@ -38,4 +38,11 @@ describe('DbSaveTweet', () => {
     await sut.save(makeFakeSaveTweetModel())
     expect(saveSpy).toHaveBeenCalledWith(makeFakeSaveTweetModel())
   })
+
+  test('should throw if SaveTweetRepository throws', async () => {
+    const { sut, saveTweetRepositoryStub } = makeSut()
+    jest.spyOn(saveTweetRepositoryStub, 'save').mockImplementationOnce(() => { throw new Error() })
+    const promise = sut.save(makeFakeSaveTweetModel())
+    await expect(promise).rejects.toThrow()
+  })
 })
