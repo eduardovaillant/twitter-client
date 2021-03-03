@@ -1,6 +1,5 @@
 import { DbSaveTweet } from './db-save-tweet'
-import { SaveTweetRepository } from '@/data/protocols/repositories/save-tweet-repository'
-import { SaveTweetModel } from '@/domain/usecases/save-tweet'
+import { SaveTweetRepository, SaveTweetModel } from './db-save-tweet-protocols'
 
 const makeSaveTweetRepositoryStub = (): SaveTweetRepository => {
   class SaveTweetRepositoryStub implements SaveTweetRepository {

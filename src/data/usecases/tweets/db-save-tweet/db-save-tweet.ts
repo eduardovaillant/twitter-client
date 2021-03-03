@@ -1,5 +1,4 @@
-import { SaveTweetRepository } from '@/data/protocols/repositories/save-tweet-repository'
-import { SaveTweet, SaveTweetModel } from '@/domain/usecases/save-tweet'
+import { SaveTweetRepository, SaveTweet, SaveTweetModel } from './db-save-tweet-protocols'
 
 export class DbSaveTweet implements SaveTweet {
   constructor (
